@@ -1,5 +1,12 @@
+@use "@angular/material" as mat;
+@import "../../../../styles/theme.scss";
+
 .logo-container {
   display: flex;
   align-items: center;
   gap: 1rem;
+  h5 {
+    color: mat.get-theme-color($theme, primary, 95);
+    margin: 0;
+  }
 }

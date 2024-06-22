@@ -1,0 +1,11 @@
+@use "@angular/material" as mat;
+@import "../../../../styles/theme.scss";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  color: mat.get-theme-color($theme, error, 50);
+}

@@ -1,0 +1,9 @@
+@use "@angular/material" as mat;
+
+$theme: mat.define-theme(
+  (
+    color: (
+      primary: mat.$blue-palette,
+    ),
+  )
+);

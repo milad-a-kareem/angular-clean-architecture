@@ -1,9 +1,11 @@
+@use "@angular/material" as mat;
+@import "../../../../styles/theme.scss";
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background-color: yellowgreen;
+  background-color: mat.get-theme-color($theme, primary, 40);
   gap: 1rem;
-  border-radius: 0.5rem;
 }
