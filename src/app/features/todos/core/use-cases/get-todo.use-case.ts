@@ -1,14 +1,13 @@
 import { Injectable, inject } from '@angular/core';
-import { NewTodoEntity } from '../entities/new-todo.entity';
 import { TodosRepository } from '../repositories/todos.repository';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CreateTodoUseCase {
+export class GetTodoUseCase {
   todosRepository = inject(TodosRepository);
 
-  execute(newTodo: NewTodoEntity) {
-    return this.todosRepository.createTodo(newTodo);
+  execute(id: number) {
+    return this.todosRepository.getTodo(id);
   }
 }

@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { TodosRepository } from '../repositories/todos.repository';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DeleteTodoUseCase {
-  constructor(private todosRepo: TodosRepository) {}
+  todosRepository = inject(TodosRepository);
 
   execute(id: number) {
-    return this.todosRepo.deleteTodo(id);
+    return this.todosRepository.deleteTodo(id);
   }
 }

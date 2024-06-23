@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { TodosRepository } from '../repositories/todos.repository';
 import { TodoEntity } from '../entities/todo.entity';
 
@@ -6,9 +6,9 @@ import { TodoEntity } from '../entities/todo.entity';
   providedIn: 'root',
 })
 export class UpdateTodoUseCase {
-  constructor(private todosRepo: TodosRepository) {}
+  todosRepository = inject(TodosRepository);
 
   execute(todo: TodoEntity) {
-    return this.todosRepo.updateTodo(todo);
+    return this.todosRepository.updateTodo(todo);
   }
 }

@@ -1,1 +1,18 @@
-<p>todo-list works!</p>
+<ul class="list-container">
+  @for(todo of todos(); track todo.id){
+  <li [routerLink]="todo.id + ''">
+    <mat-card appearance="outlined">
+      <mat-card-header>
+        <mat-card-title>{{ todo.todo }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div [class]="todo.completed ? 'chip done' : 'chip todo'">
+          {{ todo.completed ? "Done" : "Todo" }}
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </li>
+  } @empty {
+  <h4>No, Todos yet! Add one.</h4>
+  }
+</ul>

@@ -10,7 +10,15 @@ export class TodosResponseDto {
   ) {}
 
   toEntity() {
-    const todosEntity = this.todos.map((todo) => todo.toEntity());
+    const todosEntity = this.todos.map((todo) => {
+      const todoResponse = new TodoResponseDto(
+        todo.id,
+        todo.todo,
+        todo.userId,
+        todo.completed
+      );
+      return todoResponse.toEntity();
+    });
     return new TodosDataEntity(this.total, todosEntity, this.skip, this.limit);
   }
 }
