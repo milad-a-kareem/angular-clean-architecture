@@ -1,18 +1,18 @@
 <h5>Your Todos:</h5>
 <div class="content">
-  @if(isLoading){
+  @if(isLoading()){
   <mat-spinner></mat-spinner>
   }@else {
-  <app-todo-list [todos]="todos"></app-todo-list>
+  <app-todo-list [todos]="todos()"></app-todo-list>
   }
 </div>
 <mat-paginator
-  [disabled]="isLoading"
+  [disabled]="isLoading()"
   (page)="handlePageEvent($event)"
-  [length]="length"
+  [length]="length()"
   [pageSize]="5"
   [showFirstLastButtons]="true"
   [hidePageSize]="true"
-  [pageIndex]="pageIndex"
+  [pageIndex]="pageIndex()"
 >
 </mat-paginator>

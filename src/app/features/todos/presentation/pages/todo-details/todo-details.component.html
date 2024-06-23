@@ -1,2 +1,23 @@
-<p>todo-details works!</p>
-<p>{{ id }}</p>
+@if(isLoading()){
+<mat-spinner></mat-spinner>
+}@else {
+<h3>Todo Details</h3>
+<div>
+  <h5><span class="label">ID: </span>{{ todoData()?.id }}</h5>
+  <h5><span class="label">Title: </span>{{ todoData()?.todo }}</h5>
+  <h5><span class="label">User ID: </span> {{ todoData()?.userId }}</h5>
+  <div class="actions-container">
+    <button
+      mat-flat-button
+      class="custom-button danger-button"
+      (click)="openDeleteDialog()"
+    >
+      <mat-icon>delete</mat-icon>Delete
+    </button>
+    <button mat-flat-button class="custom-button secondary-button">
+      <mat-icon>edit</mat-icon>Update
+    </button>
+  </div>
+</div>
+
+}

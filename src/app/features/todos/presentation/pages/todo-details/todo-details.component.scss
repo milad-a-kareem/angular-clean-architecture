@@ -1,0 +1,35 @@
+@use "@angular/material" as mat;
+@import "../../../../../../styles/theme.scss";
+
+.secondary-button {
+  @include mat.button-color($theme, $color-variant: secondary);
+}
+
+.danger-button {
+  @include mat.button-color($theme, $color-variant: error);
+}
+
+.custom-button {
+  height: 56px;
+}
+
+.actions-container {
+  display: flex;
+  gap: 1rem;
+}
+
+:host {
+  padding: 1rem;
+  border: 1px solid mat.get-theme-color($theme, neutral, 80);
+  margin: 1rem;
+  border-radius: 1rem;
+  background-color: mat.get-theme-color($theme, neutral, 90);
+  h3 {
+    color: mat.get-theme-color($theme, primary, 20);
+  }
+}
+
+.label {
+  font-weight: 400;
+  color: mat.get-theme-color($theme, primary, 20);
+}

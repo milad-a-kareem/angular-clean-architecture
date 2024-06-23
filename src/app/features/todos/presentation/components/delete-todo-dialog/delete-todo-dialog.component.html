@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Delete Confirmation</h2>
+<mat-dialog-content>
+  <p>Are you sure you want to delete the following todo?</p>
+  <p>ID: {{ data.id }}</p>
+  <p>Title: {{ data.todo }}</p>
+  <p>User ID: {{ data.userId }}</p>
+  <p>Status: {{ data.completed ? "Done" : "Todo" }}</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Yes</button>
+</mat-dialog-actions>

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { TodoEntity } from '../../../core/entities/todo.entity';
 import { GetTodosUseCase } from '../../../core/use-cases/get-todos.use-case';
 import { TodoListComponent } from '../../components/todo-list/todo-list.component';
@@ -10,46 +10,43 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   standalone: true,
   imports: [TodoListComponent, MatPaginatorModule, MatProgressSpinnerModule],
   templateUrl: './todos.component.html',
-  styleUrl: './todos.component.scss',
+  styleUrls: ['./todos.component.scss'],
 })
 export class TodosComponent implements OnInit {
-  isLoading = true;
-  todos: TodoEntity[] = [];
-  getTodosUseCase = inject(GetTodosUseCase);
+  readonly isLoading = signal(true);
+  readonly todos = signal<TodoEntity[]>([]);
+  readonly length = signal(0);
+  readonly pageSize = signal(5);
+  readonly pageIndex = signal(0);
 
-  length = 0;
-  pageSize = 5;
-  pageIndex = 0;
+  readonly getTodosUseCase = inject(GetTodosUseCase);
 
-  hidePageSize = false;
-  showPageSizeOptions = true;
-  showFirstLastButtons = true;
-  disabled = false;
-
-  pageEvent: PageEvent | undefined;
+  readonly hidePageSize = false;
+  readonly showPageSizeOptions = true;
+  readonly showFirstLastButtons = true;
+  readonly disabled = false;
 
   handlePageEvent(e: PageEvent) {
-    this.pageEvent = e;
-    this.isLoading = true;
-    this.pageSize = e.pageSize;
-    this.pageIndex = e.pageIndex;
+    this.isLoading.set(true);
+    this.pageSize.set(e.pageSize);
+    this.pageIndex.set(e.pageIndex);
 
     this.getTodosUseCase
       .execute(e.pageIndex * e.pageSize, e.pageSize)
       .subscribe((todosData) => {
-        this.todos = todosData.todos;
-        this.length = todosData.total;
-        this.isLoading = false;
+        this.todos.set(todosData.todos);
+        this.length.set(todosData.total);
+        this.isLoading.set(false);
       });
   }
 
   ngOnInit(): void {
     this.getTodosUseCase
-      .execute(this.pageIndex * this.pageSize, this.pageSize)
+      .execute(this.pageIndex() * this.pageSize(), this.pageSize())
       .subscribe((todosData) => {
-        this.todos = todosData.todos;
-        this.length = todosData.total;
-        this.isLoading = false;
+        this.todos.set(todosData.todos);
+        this.length.set(todosData.total);
+        this.isLoading.set(false);
       });
   }
 }
