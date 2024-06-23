@@ -6,6 +6,10 @@
   <h5><span class="label">ID: </span>{{ todoData()?.id }}</h5>
   <h5><span class="label">Title: </span>{{ todoData()?.todo }}</h5>
   <h5><span class="label">User ID: </span> {{ todoData()?.userId }}</h5>
+  <h5>
+    <span class="label">Is Completed: </span>
+    {{ todoData()?.completed ? "Yes" : "No" }}
+  </h5>
   <div class="actions-container">
     <button
       mat-flat-button
@@ -14,7 +18,11 @@
     >
       <mat-icon>delete</mat-icon>Delete
     </button>
-    <button mat-flat-button class="custom-button secondary-button">
+    <button
+      mat-flat-button
+      class="custom-button secondary-button"
+      (click)="openUpdateDialog()"
+    >
       <mat-icon>edit</mat-icon>Update
     </button>
   </div>

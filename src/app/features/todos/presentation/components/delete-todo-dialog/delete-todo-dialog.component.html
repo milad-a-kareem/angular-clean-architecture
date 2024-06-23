@@ -4,7 +4,7 @@
   <p>ID: {{ data.id }}</p>
   <p>Title: {{ data.todo }}</p>
   <p>User ID: {{ data.userId }}</p>
-  <p>Status: {{ data.completed ? "Done" : "Todo" }}</p>
+  <p>Is Completed: {{ data.completed ? "Yes" : "No" }}</p>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No</button>

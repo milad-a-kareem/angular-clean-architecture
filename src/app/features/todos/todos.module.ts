@@ -8,6 +8,7 @@ import { RemoteTodosDataSource } from './data/data-sources/remote-todos.data-sou
 import { GetTodosUseCase } from './core/use-cases/get-todos.use-case';
 import { GetTodoUseCase } from './core/use-cases/get-todo.use-case';
 import { DeleteTodoUseCase } from './core/use-cases/delete-todo.use-case';
+import { UpdateTodoUseCase } from './core/use-cases/update-todo.use-case';
 
 @NgModule({
   declarations: [],
@@ -18,6 +19,7 @@ import { DeleteTodoUseCase } from './core/use-cases/delete-todo.use-case';
     GetTodosUseCase,
     GetTodoUseCase,
     DeleteTodoUseCase,
+    UpdateTodoUseCase,
   ],
 })
 export class TodosModule {}

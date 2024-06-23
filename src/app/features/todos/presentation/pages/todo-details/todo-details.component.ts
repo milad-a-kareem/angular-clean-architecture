@@ -9,6 +9,8 @@ import { DeleteTodoDialogComponent } from '../../components/delete-todo-dialog/d
 import { DeleteTodoUseCase } from '../../../core/use-cases/delete-todo.use-case';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
+import { UpdateTodoDialogComponent } from '../../components/update-todo-dialog/update-todo-dialog.component';
+import { UpdateTodoUseCase } from '../../../core/use-cases/update-todo.use-case';
 
 @Component({
   selector: 'app-todo-details',
@@ -24,6 +26,7 @@ export class TodoDetailsComponent implements OnInit {
   readonly snackBar = inject(MatSnackBar);
   readonly getTodoUseCase = inject(GetTodoUseCase);
   readonly deleteTodoUseCase = inject(DeleteTodoUseCase);
+  readonly updateTodoUseCase = inject(UpdateTodoUseCase);
 
   readonly todoData = signal<TodoEntity | null>(null);
   readonly isLoading = signal(true);
@@ -53,6 +56,32 @@ export class TodoDetailsComponent implements OnInit {
           this.router.navigate(['/todos']);
           console.log('deleted');
           this.snackBar.open('Deleted Successfully', undefined, {
+            duration: 3000,
+          });
+        });
+      }
+    });
+  }
+
+  openUpdateDialog(): void {
+    const dialogRef = this.dialog.open(UpdateTodoDialogComponent, {
+      data: {
+        id: this.todoData()?.id,
+        todo: this.todoData()?.todo,
+        userId: this.todoData()?.userId,
+        completed: this.todoData()?.completed,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log(result);
+
+        this.isLoading.set(true);
+        this.updateTodoUseCase.execute(result).subscribe(() => {
+          this.router.navigate(['/todos']);
+          console.log('updated');
+          this.snackBar.open('Updated Successfully', undefined, {
             duration: 3000,
           });
         });

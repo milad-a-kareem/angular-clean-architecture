@@ -15,8 +15,10 @@ ul {
 }
 
 .chip {
+  margin-top: 4px;
   display: flex;
-  padding: 8px;
+  padding-inline: 8px;
+  padding-block: 4px;
   width: fit-content;
   border-radius: 8px;
 }
@@ -27,5 +29,5 @@ ul {
 }
 
 .todo {
-  background-color: mat.get-theme-color($theme, secondary, 90);
+  background-color: mat.get-theme-color($theme, error, 90);
 }

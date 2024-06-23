@@ -24,10 +24,8 @@ export class RemoteTodosDataSource {
   }
 
   updateTodo(updatedTodo: TodoResponseDto) {
-    return this.http.put<TodoResponseDto>(
-      `/todos/${updatedTodo.id}`,
-      updatedTodo
-    );
+    const { id, ...body } = updatedTodo;
+    return this.http.put<TodoResponseDto>(`/todos/${id}`, body);
   }
 
   deleteTodo(id: number) {

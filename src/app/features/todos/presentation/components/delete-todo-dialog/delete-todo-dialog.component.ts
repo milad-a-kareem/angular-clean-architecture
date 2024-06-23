@@ -11,7 +11,6 @@ import {
 } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { Router } from '@angular/router';
 
 export interface DeleteTodoDialogData {
   id: number;
@@ -39,7 +38,6 @@ export interface DeleteTodoDialogData {
 export class DeleteTodoDialogComponent {
   readonly dialogRef = inject(MatDialogRef<DeleteTodoDialogComponent>);
   readonly data = inject<DeleteTodoDialogData>(MAT_DIALOG_DATA);
-  readonly router = inject(Router);
 
   onNoClick(): void {
     this.dialogRef.close();
