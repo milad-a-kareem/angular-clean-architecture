@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteTodoDialogComponent } from '../../components/delete-todo-dialog/delete-todo-dialog.component';
 import { DeleteTodoUseCase } from '../../../core/use-cases/delete-todo.use-case';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-todo-details',
@@ -20,6 +21,7 @@ export class TodoDetailsComponent implements OnInit {
   readonly router = inject(Router);
   readonly dialog = inject(MatDialog);
   readonly route = inject(ActivatedRoute);
+  readonly snackBar = inject(MatSnackBar);
   readonly getTodoUseCase = inject(GetTodoUseCase);
   readonly deleteTodoUseCase = inject(DeleteTodoUseCase);
 
@@ -50,8 +52,10 @@ export class TodoDetailsComponent implements OnInit {
         this.deleteTodoUseCase.execute(this.todoData()!.id).subscribe(() => {
           this.router.navigate(['/todos']);
           console.log('deleted');
+          this.snackBar.open('Deleted Successfully', undefined, {
+            duration: 3000,
+          });
         });
-        console.log(result);
       }
     });
   }
