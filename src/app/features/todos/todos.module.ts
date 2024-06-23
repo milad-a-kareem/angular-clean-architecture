@@ -9,6 +9,7 @@ import { GetTodosUseCase } from './core/use-cases/get-todos.use-case';
 import { GetTodoUseCase } from './core/use-cases/get-todo.use-case';
 import { DeleteTodoUseCase } from './core/use-cases/delete-todo.use-case';
 import { UpdateTodoUseCase } from './core/use-cases/update-todo.use-case';
+import { CreateTodoUseCase } from './core/use-cases/create-todo.use-case';
 
 @NgModule({
   declarations: [],
@@ -20,6 +21,7 @@ import { UpdateTodoUseCase } from './core/use-cases/update-todo.use-case';
     GetTodoUseCase,
     DeleteTodoUseCase,
     UpdateTodoUseCase,
+    CreateTodoUseCase,
   ],
 })
 export class TodosModule {}

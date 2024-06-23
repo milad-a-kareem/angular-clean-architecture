@@ -20,7 +20,7 @@ export class RemoteTodosDataSource {
   }
 
   createTodo(todo: NewTodoRequestDto) {
-    return this.http.post<TodoResponseDto>(`/todos`, todo);
+    return this.http.post<TodoResponseDto>(`/todos/add`, todo);
   }
 
   updateTodo(updatedTodo: TodoResponseDto) {

@@ -1,1 +1,26 @@
-<p>create-todo-dialog works!</p>
+<h2 mat-dialog-title>Create Todo</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input matInput [(ngModel)]="dataModel().todo" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Is Completed</mat-label>
+    <mat-select [(ngModel)]="dataModel().completed">
+      <mat-option [value]="true">Yes</mat-option>
+      <mat-option [value]="false">No</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>User ID</mat-label>
+    <input type="number" matInput [(ngModel)]="dataModel().userId" />
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="dataModel()" cdkFocusInitial>
+    Create
+  </button>
+</mat-dialog-actions>

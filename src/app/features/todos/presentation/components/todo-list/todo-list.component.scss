@@ -24,8 +24,7 @@ ul {
 }
 
 .done {
-  background-color: mat.get-theme-color($theme, primary, 60);
-  color: mat.get-theme-color($theme, tertiary, 100);
+  background-color: mat.get-theme-color($theme, primary, 90);
 }
 
 .todo {

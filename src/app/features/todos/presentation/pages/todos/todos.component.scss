@@ -25,3 +25,13 @@ app-todo-list {
 mat-spinner {
   margin: auto 0;
 }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-block-end: 1rem;
+  h5 {
+    margin: 0;
+  }
+}

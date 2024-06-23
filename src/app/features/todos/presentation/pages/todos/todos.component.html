@@ -1,4 +1,10 @@
-<h5>Your Todos:</h5>
+<div class="header">
+  <h5>Your Todos:</h5>
+  <button mat-flat-button (click)="openCreateDialog()">
+    <mat-icon>add</mat-icon>
+    Create
+  </button>
+</div>
 <div class="content">
   @if(isLoading()){
   <mat-spinner></mat-spinner>
