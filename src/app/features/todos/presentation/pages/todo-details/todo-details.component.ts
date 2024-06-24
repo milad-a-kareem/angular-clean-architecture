@@ -1,16 +1,19 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GetTodoUseCase } from '../../../core/use-cases/get-todo.use-case';
-import { TodoEntity } from '../../../core/entities/todo.entity';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+
 import { MatDialog } from '@angular/material/dialog';
-import { DeleteTodoDialogComponent } from '../../components/delete-todo-dialog/delete-todo-dialog.component';
-import { DeleteTodoUseCase } from '../../../core/use-cases/delete-todo.use-case';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
-import { UpdateTodoDialogComponent } from '../../components/update-todo-dialog/update-todo-dialog.component';
+
+import { TodoEntity } from '../../../core/entities/todo.entity';
+import { GetTodoUseCase } from '../../../core/use-cases/get-todo.use-case';
 import { UpdateTodoUseCase } from '../../../core/use-cases/update-todo.use-case';
+import { DeleteTodoUseCase } from '../../../core/use-cases/delete-todo.use-case';
+import { UpdateTodoDialogComponent } from '../../components/update-todo-dialog/update-todo-dialog.component';
+import { DeleteTodoDialogComponent } from '../../components/delete-todo-dialog/delete-todo-dialog.component';
+
+import { SnackbarService } from '../../../../../shared/services/snackbar.service';
 
 @Component({
   selector: 'app-todo-details',
@@ -23,13 +26,13 @@ export class TodoDetailsComponent implements OnInit {
   readonly router = inject(Router);
   readonly dialog = inject(MatDialog);
   readonly route = inject(ActivatedRoute);
-  readonly snackBar = inject(MatSnackBar);
+  readonly snackBar = inject(SnackbarService);
   readonly getTodoUseCase = inject(GetTodoUseCase);
   readonly deleteTodoUseCase = inject(DeleteTodoUseCase);
   readonly updateTodoUseCase = inject(UpdateTodoUseCase);
 
-  readonly todoData = signal<TodoEntity | null>(null);
   readonly isLoading = signal(true);
+  readonly todoData = signal<TodoEntity | null>(null);
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id') as string;
@@ -52,12 +55,14 @@ export class TodoDetailsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.isLoading.set(true);
-        this.deleteTodoUseCase.execute(this.todoData()!.id).subscribe(() => {
-          this.router.navigate(['/todos']);
-          console.log('deleted');
-          this.snackBar.open('Deleted Successfully', undefined, {
-            duration: 3000,
-          });
+        this.deleteTodoUseCase.execute(this.todoData()!.id).subscribe({
+          next: () => {
+            this.router.navigate(['/todos']);
+            this.snackBar.showSuccess('Deleted Successfully');
+          },
+          error: (err) => {
+            this.snackBar.showError(err.message);
+          },
         });
       }
     });
@@ -75,15 +80,15 @@ export class TodoDetailsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log(result);
-
         this.isLoading.set(true);
-        this.updateTodoUseCase.execute(result).subscribe(() => {
-          this.router.navigate(['/todos']);
-          console.log('updated');
-          this.snackBar.open('Updated Successfully', undefined, {
-            duration: 3000,
-          });
+        this.updateTodoUseCase.execute(result).subscribe({
+          next: () => {
+            this.router.navigate(['/todos']);
+            this.snackBar.showSuccess('Updated Successfully');
+          },
+          error: (err) => {
+            this.snackBar.showError(err.message);
+          },
         });
       }
     });

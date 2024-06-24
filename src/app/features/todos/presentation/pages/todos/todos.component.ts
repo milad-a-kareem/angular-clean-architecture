@@ -1,27 +1,30 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+
 import { TodoEntity } from '../../../core/entities/todo.entity';
 import { GetTodosUseCase } from '../../../core/use-cases/get-todos.use-case';
-import { TodoListComponent } from '../../components/todo-list/todo-list.component';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
 import { CreateTodoUseCase } from '../../../core/use-cases/create-todo.use-case';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import { UpdateTodoDialogComponent } from '../../components/update-todo-dialog/update-todo-dialog.component';
+
+import { TodoListComponent } from '../../components/todo-list/todo-list.component';
 import { CreateTodoDialogComponent } from '../../components/create-todo-dialog/create-todo-dialog.component';
+
+import { SnackbarService } from '../../../../../shared/services/snackbar.service';
 
 @Component({
   selector: 'app-todos',
   standalone: true,
   imports: [
-    TodoListComponent,
-    MatPaginatorModule,
-    MatProgressSpinnerModule,
-    MatButton,
     MatIcon,
+    MatButton,
+    MatPaginator,
+    MatProgressSpinner,
+    TodoListComponent,
   ],
   templateUrl: './todos.component.html',
   styleUrls: ['./todos.component.scss'],
@@ -29,20 +32,20 @@ import { CreateTodoDialogComponent } from '../../components/create-todo-dialog/c
 export class TodosComponent implements OnInit {
   readonly router = inject(Router);
   readonly dialog = inject(MatDialog);
-  readonly snackBar = inject(MatSnackBar);
+  readonly snackBar = inject(SnackbarService);
+  readonly getTodosUseCase = inject(GetTodosUseCase);
   readonly createTodoUseCase = inject(CreateTodoUseCase);
-  readonly isLoading = signal(true);
-  readonly todos = signal<TodoEntity[]>([]);
+
   readonly length = signal(0);
   readonly pageSize = signal(5);
   readonly pageIndex = signal(0);
+  readonly isLoading = signal(true);
+  readonly todos = signal<TodoEntity[]>([]);
 
-  readonly getTodosUseCase = inject(GetTodosUseCase);
-
+  readonly disabled = false;
   readonly hidePageSize = false;
   readonly showPageSizeOptions = true;
   readonly showFirstLastButtons = true;
-  readonly disabled = false;
 
   handlePageEvent(e: PageEvent) {
     this.isLoading.set(true);
@@ -51,20 +54,30 @@ export class TodosComponent implements OnInit {
 
     this.getTodosUseCase
       .execute(e.pageIndex * e.pageSize, e.pageSize)
-      .subscribe((todosData) => {
-        this.todos.set(todosData.todos);
-        this.length.set(todosData.total);
-        this.isLoading.set(false);
+      .subscribe({
+        next: (todosData) => {
+          this.todos.set(todosData.todos);
+          this.length.set(todosData.total);
+          this.isLoading.set(false);
+        },
+        error: (err) => {
+          this.snackBar.showError(err.message);
+        },
       });
   }
 
   ngOnInit(): void {
     this.getTodosUseCase
       .execute(this.pageIndex() * this.pageSize(), this.pageSize())
-      .subscribe((todosData) => {
-        this.todos.set(todosData.todos);
-        this.length.set(todosData.total);
-        this.isLoading.set(false);
+      .subscribe({
+        next: (todosData) => {
+          this.todos.set(todosData.todos);
+          this.length.set(todosData.total);
+          this.isLoading.set(false);
+        },
+        error: (err) => {
+          this.snackBar.showError(err.message);
+        },
       });
   }
 
@@ -74,13 +87,15 @@ export class TodosComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.isLoading.set(true);
-        this.createTodoUseCase.execute(result).subscribe(() => {
-          this.router.navigate(['/todos']);
-          console.log('created');
-          this.isLoading.set(false);
-          this.snackBar.open('Created Successfully', undefined, {
-            duration: 3000,
-          });
+        this.createTodoUseCase.execute(result).subscribe({
+          next: () => {
+            this.router.navigate(['/todos']);
+            this.isLoading.set(false);
+            this.snackBar.showSuccess('Created Successfully');
+          },
+          error: (err) => {
+            this.snackBar.showError(err.message);
+          },
         });
       }
     });
