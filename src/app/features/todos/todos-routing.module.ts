@@ -8,7 +8,7 @@ const routes: Routes = [
       {
         path: '',
         loadComponent: () =>
-          import('./todos/todos.component').then(
+          import('./presentation/views/todos/todos.component').then(
             (c) => c.TodosComponent
           ),
       },
@@ -19,7 +19,7 @@ const routes: Routes = [
             path: '',
             loadComponent: () =>
               import(
-                './todo-details/todo-details.component'
+                './presentation/views/todo-details/todo-details.component'
               ).then((c) => c.TodoDetailsComponent),
           },
         ],

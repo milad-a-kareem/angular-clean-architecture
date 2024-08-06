@@ -30,12 +30,6 @@ import { SnackbarService } from '../../../../../shared/services/snackbar.service
   styleUrls: ['./todos.component.scss'],
 })
 export class TodosComponent implements OnInit {
-  readonly router = inject(Router);
-  readonly dialog = inject(MatDialog);
-  readonly snackBar = inject(SnackbarService);
-  readonly getTodosUseCase = inject(GetTodosUseCase);
-  readonly createTodoUseCase = inject(CreateTodoUseCase);
-
   readonly length = signal(0);
   readonly pageSize = signal(5);
   readonly pageIndex = signal(0);
@@ -46,6 +40,14 @@ export class TodosComponent implements OnInit {
   readonly hidePageSize = false;
   readonly showPageSizeOptions = true;
   readonly showFirstLastButtons = true;
+
+  constructor(
+    readonly createTodoUseCase: CreateTodoUseCase,
+    readonly getTodosUseCase: GetTodosUseCase,
+    readonly snackBar: SnackbarService,
+    readonly dialog: MatDialog,
+    readonly router: Router,
+  ) {}
 
   handlePageEvent(e: PageEvent) {
     this.isLoading.set(true);
