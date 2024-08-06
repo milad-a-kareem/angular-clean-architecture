@@ -1,4 +1,4 @@
-import { TodosDataEntity } from '../../core/entities/todos-data.entity';
+import { TodosDataEntity } from '../../domain/entities/todos-data.entity';
 import { TodoResponseDto } from './todo-response.dto';
 
 export class TodosResponseDto {
