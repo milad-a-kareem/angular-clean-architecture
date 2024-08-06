@@ -7,9 +7,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
-import { TodoEntity } from '../../../core/entities/todo.entity';
-import { GetTodosUseCase } from '../../../core/use-cases/get-todos.use-case';
-import { CreateTodoUseCase } from '../../../core/use-cases/create-todo.use-case';
+import { TodoEntity } from '../../../domain/entities/todo.entity';
+import { GetTodosUseCase } from '../../../domain/use-cases/get-todos.use-case';
+import { CreateTodoUseCase } from '../../../domain/use-cases/create-todo.use-case';
 
 import { TodoListComponent } from '../../components/todo-list/todo-list.component';
 import { CreateTodoDialogComponent } from '../../components/create-todo-dialog/create-todo-dialog.component';

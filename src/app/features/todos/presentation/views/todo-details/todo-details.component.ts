@@ -6,10 +6,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
-import { TodoEntity } from '../../../core/entities/todo.entity';
-import { GetTodoUseCase } from '../../../core/use-cases/get-todo.use-case';
-import { UpdateTodoUseCase } from '../../../core/use-cases/update-todo.use-case';
-import { DeleteTodoUseCase } from '../../../core/use-cases/delete-todo.use-case';
+import { TodoEntity } from '../../../domain/entities/todo.entity';
+import { GetTodoUseCase } from '../../../domain/use-cases/get-todo.use-case';
+import { UpdateTodoUseCase } from '../../../domain/use-cases/update-todo.use-case';
+import { DeleteTodoUseCase } from '../../../domain/use-cases/delete-todo.use-case';
 import { UpdateTodoDialogComponent } from '../../components/update-todo-dialog/update-todo-dialog.component';
 import { DeleteTodoDialogComponent } from '../../components/delete-todo-dialog/delete-todo-dialog.component';
 
