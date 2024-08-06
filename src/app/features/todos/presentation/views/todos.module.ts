@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { TodosRoutingModule } from './todos-routing.module';
 import { TodosRepository } from '../../domain/repositories/todos.repository';
-import { TodosRepositoryImpl } from '../../data/repositories/todos.repository-impl';
+import { TodosRepositoryImpl } from '../../data/repositories/api-todos.repository';
 import { RemoteTodosDataSource } from '../../data/sources/remote-todos.data-source';
 import { GetTodosUseCase } from '../../domain/use-cases/get-todos.use-case';
 import { GetTodoUseCase } from '../../domain/use-cases/get-todo.use-case';
