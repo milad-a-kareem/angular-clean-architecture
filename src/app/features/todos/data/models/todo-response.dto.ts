@@ -1,4 +1,4 @@
-import { TodoEntity } from '../../core/entities/todo.entity';
+import { TodoEntity } from '../../domain/entities/todo.entity';
 
 export class TodoResponseDto {
   constructor(

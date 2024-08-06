@@ -1,8 +1,8 @@
 import { map } from 'rxjs';
-import { NewTodoEntity } from '../../core/entities/new-todo.entity';
-import { TodoEntity } from '../../core/entities/todo.entity';
-import { TodosRepository } from '../../core/repositories/todos.repository';
-import { RemoteTodosDataSource } from '../data-sources/remote-todos.data-source';
+import { NewTodoEntity } from '../../domain/entities/new-todo.entity';
+import { TodoEntity } from '../../domain/entities/todo.entity';
+import { TodosRepository } from '../../domain/repositories/todos.repository';
+import { RemoteTodosDataSource } from '../sources/remote-todos.data-source';
 import { NewTodoRequestDto } from '../models/new-todo-request.dto';
 import { TodoResponseDto } from '../models/todo-response.dto';
 import { Injectable } from '@angular/core';

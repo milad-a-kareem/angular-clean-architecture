@@ -1,4 +1,4 @@
-import { NewTodoEntity } from '../../core/entities/new-todo.entity';
+import { NewTodoEntity } from '../../domain/entities/new-todo.entity';
 
 export class NewTodoRequestDto {
   constructor(

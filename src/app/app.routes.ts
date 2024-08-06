@@ -5,7 +5,7 @@ export const routes: Routes = [
   {
     path: 'todos',
     loadChildren: () =>
-      import('./features/todos/todos.module').then((m) => m.TodosModule),
+      import('./features/todos/presentation/views/todos.module').then((m) => m.TodosModule),
   },
   {
     path: '**',

@@ -1,4 +1,4 @@
-import { DeletedTodoEntity } from '../../core/entities/deleted-todo.entity';
+import { DeletedTodoEntity } from '../../domain/entities/deleted-todo.entity';
 
 export class DeletedTodoResponseDto {
   constructor(
