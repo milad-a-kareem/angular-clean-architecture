@@ -1,4 +1,4 @@
-export interface TodoEntity {
+export interface TodoDto {
   id: number;
   todo: string;
   userId: number;

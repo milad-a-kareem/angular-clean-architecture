@@ -1,7 +1,5 @@
-export class NewTodoEntity {
-  constructor(
-    public todo: string,
-    public userId: number,
-    public completed: boolean
-  ) {}
+export interface NewTodoEntity {
+  todo: string;
+  userId: number;
+  completed: boolean;
 }
