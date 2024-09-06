@@ -1,32 +1,34 @@
 import { Component, inject, model } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatOption } from '@angular/material/core';
+
 import {
+  MatDialogRef,
   MatDialogTitle,
+  MatDialogClose,
   MatDialogContent,
   MatDialogActions,
-  MatDialogClose,
-  MatDialogRef,
 } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { MatOption } from '@angular/material/core';
+import { MatInput } from '@angular/material/input';
+import { MatButton } from '@angular/material/button';
 import { MatSelect } from '@angular/material/select';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-create-todo-dialog',
   standalone: true,
   imports: [
-    MatFormFieldModule,
-    MatInputModule,
+    MatInput,
+    MatLabel,
+    MatSelect,
+    MatButton,
+    MatOption,
     FormsModule,
-    MatButtonModule,
+    MatFormField,
     MatDialogTitle,
+    MatDialogClose,
     MatDialogContent,
     MatDialogActions,
-    MatDialogClose,
-    MatSelect,
-    MatOption,
   ],
   templateUrl: './create-todo-dialog.component.html',
   styleUrl: './create-todo-dialog.component.scss',

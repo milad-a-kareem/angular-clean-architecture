@@ -3,3 +3,10 @@
   display: flex;
   flex-direction: column;
 }
+
+::ng-deep .error-snackbar {
+  --mdc-snackbar-container-color: red;
+}
+::ng-deep .success-snackbar {
+  --mdc-snackbar-container-color: green;
+}
